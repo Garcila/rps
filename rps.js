@@ -3,33 +3,18 @@ var compScore = 0;
 
 $(document).ready(function(){
 	$('.circle_rock').click(function() {
-		$('.middle_rectangle').empty();
 		var userChoice = "rock";
-		var computerChoice = computerPick();
-		$('.middle_rectangle').append('User chooses: ' + userChoice + ('<br>')
-		+ 'Computer chooses: ' + computerChoice + ('<br>')
-	  + compare(userChoice, computerChoice));
-		scoreBoard();
+		play(userChoice);
 	})
 
 	$('.circle_paper').click(function() {
-		$('.middle_rectangle').empty();
 		var userChoice = "paper";
-		var computerChoice = computerPick();
-		$('.middle_rectangle').append('User chooses: ' + userChoice + ('<br>')
-		+ 'Computer chooses: ' + computerChoice + ('<br>')
-		+ compare(userChoice, computerChoice));
-		scoreBoard();
+		play(userChoice);
 	})
 
 	$('.circle_scissors').click(function() {
-		$('.middle_rectangle').empty();
 		var userChoice = "scissors";
-		var computerChoice = computerPick();
-		$('.middle_rectangle').append('User chooses: ' + userChoice + ('<br>')
-		+ 'Computer chooses: ' + computerChoice + ('<br>')
-		+ compare(userChoice, computerChoice));
-		scoreBoard();
+		play(userChoice);
 	})
 
 	$('.bottom_rectangle').click(function() {
@@ -37,19 +22,36 @@ $(document).ready(function(){
 	})
 });
 
+// Prints the scoreboard to the screen
 var scoreBoard = function() {
 	$('.top_rectangle').empty();
 	$('.top_rectangle').append('User Score: ' + userScore + ('<br>') + 'Computer Score: ' + compScore);
 }
 
-var resetGame = function() {
-	$('.top_rectangle').empty();
+// Clears the middle rectangle, preparing it for the new score
+var clearMiddleRectangle = function() {
 	$('.middle_rectangle').empty();
-	var userScore = 0;
-	var compScore = 0;
 }
 
-//var userChoice = prompt("Do you choose rock, paper or scissors?");
+// Clears the score
+var resetGame = function() {
+	userScore = 0;
+	compScore = 0;
+	$('.top_rectangle').empty();
+	clearMiddleRectangle();
+}
+
+// sets the game in motion.  clears the score, computes the computer choice, prints the choices and prints the scoreboard
+var play = function(userChoice) {
+	clearMiddleRectangle();
+	var computerChoice = computerPick();
+	$('.middle_rectangle').append('User chooses: ' + userChoice + ('<br>')
+	+ 'Computer chooses: ' + computerChoice + ('<br>')
+	+ compare(userChoice, computerChoice));
+	scoreBoard();
+}
+
+// chooses either rock, paper or scissors for the computer
 var computerPick = function() {
 	var computerChoice = Math.random();
 	if (computerChoice < 0.34) {
@@ -61,6 +63,7 @@ var computerPick = function() {
 	}
 };
 
+// compares computer and user choices, updates the score variables and returns the winner
 var compare = function(choice1, choice2) {
     if(choice1 === choice2) {
         return("The result is a Tie!");
