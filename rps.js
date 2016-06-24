@@ -30,14 +30,19 @@ var scoreBoard = function() {
 
 // Clears the middle rectangle, preparing it for the new score
 var clearMiddleRectangle = function() {
-	$('.middle_rectangle').empty();
+	$('.middle_rectangle').empty().append('CHOICES AND RESULTS');
+}
+
+// Clears the top rectangle, preparing it for the new score
+var clearTopRectangle = function() {
+	$('.top_rectangle').empty().append('SCORE');
 }
 
 // Clears the score
 var resetGame = function() {
 	userScore = 0;
 	compScore = 0;
-	$('.top_rectangle').empty();
+	clearTopRectangle();
 	clearMiddleRectangle();
 }
 
